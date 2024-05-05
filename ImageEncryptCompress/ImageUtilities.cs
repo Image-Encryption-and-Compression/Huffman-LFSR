@@ -21,7 +21,7 @@ using ImageEncryptCompress;
 /// </returns>
 public class ImageUtilities
 {
-    public int[] GetColorChannelFrequency(RGBPixel[,] image, int channel)
+    public int[] GetColorChannelFrequency(RGBPixel[,] image, Color channel)
     {
         int[] colorFrequency = new int[256];
         for (int i = 0; i < image.GetLength(0); i++)
@@ -31,17 +31,17 @@ public class ImageUtilities
                 int colorValue = 0;
                 switch (channel)
                 {
-                    case 0:
+                    case Color.BLUE:
                         {
                             colorValue = image[i, j].blue;
                             break;
                         }
-                    case 1:
+                    case Color.GREEN:
                         {
                             colorValue = image[i, j].green;
                             break;
                         }
-                    case 2:
+                    case Color.RED:
                         {
                             colorValue = image[i, j].red;
                             break;
