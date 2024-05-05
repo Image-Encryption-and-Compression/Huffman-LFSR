@@ -20,12 +20,12 @@ namespace ImageEncryptCompress
         private RGBPixel[,] CopyMatrix(RGBPixel[,] imageMatrix)
         {
             
-            RGBPixel[,] ans = new RGBPixel[width,height];
+            RGBPixel[,] ans = new RGBPixel[width, height];
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
                 {
-                    ans[i,j] = imageMatrix[i,j];
+                    ans[i, j] = imageMatrix[i, j];
                 }
             }
             return ans;
@@ -52,9 +52,9 @@ namespace ImageEncryptCompress
             {
                 for (int j = 0; j < height; j++)
                 {
-                    copiedImage[i,j].red   = copiedImage[i,j].red   ^ (byte)passwordGenerator.GeneratKey(numberOfBits);
-                    copiedImage[i,j].green = copiedImage[i,j].green ^ (byte)passwordGenerator.GeneratKey(numberOfBits);
-                    copiedImage[i,j].blue  = copiedImage[i,j].blue  ^ (byte)passwordGenerator.GeneratKey(numberOfBits);
+                    copiedImage[i, j].red   = copiedImage[i, j].red   ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
+                    copiedImage[i, j].green = copiedImage[i, j].green ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
+                    copiedImage[i, j].blue  = copiedImage[i, j].blue  ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
                 }
             }
             */
