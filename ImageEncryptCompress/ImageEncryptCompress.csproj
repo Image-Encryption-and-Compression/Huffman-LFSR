@@ -48,7 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color.cs" />
+    <Compile Include="HuffmanNode.cs" />
     <Compile Include="HuffmanTree.cs" />
+    <Compile Include="ImageUtilities.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
