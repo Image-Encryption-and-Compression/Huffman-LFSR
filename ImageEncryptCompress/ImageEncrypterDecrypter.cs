@@ -13,11 +13,11 @@ namespace ImageEncryptCompress
         private int height;
 
         /// <summary>
-        /// creat a copy of the image to avoid ruin the original image
+        /// create a copy of the image to avoid ruin the original image
         /// </summary>
         /// <param name="imageMatrix">the original image</param>
         /// <returns>a copy of the original image</returns>
-        public RGBPixel[,] CopyMatrix(RGBPixel[,] imageMatrix)
+        private RGBPixel[,] CopyMatrix(RGBPixel[,] imageMatrix)
         {
             
             RGBPixel[,] ans = new RGBPixel[width,height];
@@ -44,7 +44,7 @@ namespace ImageEncryptCompress
             height = ImageOperations.GetHeight(imageMatrix);
 
             RGBPixel[,] encryptedImage = new RGBPixel[width, height];
-            RGBPixel[,] copyMatrix = CopyMatrix(imageMatrix);
+            RGBPixel[,] copiedImage = CopyMatrix(imageMatrix);
             /* 
             LFSR passwordGenerator = new LFSR(seed, tapPosition);
             int numberOfBits = 8;
@@ -52,9 +52,9 @@ namespace ImageEncryptCompress
             {
                 for (int j = 0; j < height; j++)
                 {
-                    copyMatrix[i,j].red   = copyMatrix[i,j].red   ^ (byte)passwordGenerator.generatKey(numberOfBits);
-                    copyMatrix[i,j].green = copyMatrix[i,j].green ^ (byte)passwordGenerator.generatKey(numberOfBits);
-                    copyMatrix[i,j].blue  = copyMatrix[i,j].blue  ^ (byte)passwordGenerator.generatKey(numberOfBits);
+                    copiedImage[i,j].red   = copiedImage[i,j].red   ^ (byte)passwordGenerator.GeneratKey(numberOfBits);
+                    copiedImage[i,j].green = copiedImage[i,j].green ^ (byte)passwordGenerator.GeneratKey(numberOfBits);
+                    copiedImage[i,j].blue  = copiedImage[i,j].blue  ^ (byte)passwordGenerator.GeneratKey(numberOfBits);
                 }
             }
             */
