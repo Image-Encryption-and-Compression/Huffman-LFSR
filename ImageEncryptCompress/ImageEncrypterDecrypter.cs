@@ -9,15 +9,15 @@ namespace ImageEncryptCompress
 {
     public class ImageEncrypterDecrypter
     {
-        private int width;
-        private int height;
+        private static int width;
+        private static int height;
 
         /// <summary>
         /// create a copy of the image to avoid ruin the original image
         /// </summary>
         /// <param name="imageMatrix">the original image</param>
         /// <returns>a copy of the original image</returns>
-        private RGBPixel[,] CopyMatrix(RGBPixel[,] imageMatrix)
+        private static RGBPixel[,] CopyMatrix(RGBPixel[,] imageMatrix)
         {
             
             RGBPixel[,] copiedImage = new RGBPixel[height, width];
@@ -38,7 +38,7 @@ namespace ImageEncryptCompress
         /// <param name="passwordGenerator">object from LSFR class to generate keys</param>
         /// <returns>encrypted image</returns>
         /*
-        public RGBPixel[,] EncryptDecrypt(RGBPixel[,] imageMatrix, LFSR passwordGenerator)
+        public static RGBPixel[,] EncryptDecrypt(RGBPixel[,] imageMatrix, LFSR passwordGenerator)
         {
             width = ImageOperations.GetWidth(imageMatrix);
             height = ImageOperations.GetHeight(imageMatrix);
