@@ -1,8 +1,4 @@
-﻿
-
-
-
-using ImageEncryptCompress;
+﻿using ImageEncryptCompress;
 
 /// <summary>
 /// Gets the frequency of each color value in a specified channel of an image.

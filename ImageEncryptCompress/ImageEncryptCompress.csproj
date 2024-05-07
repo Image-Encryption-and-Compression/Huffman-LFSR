@@ -61,7 +61,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageOperations.cs" />
-    <Compile Include="PriorityQueue.cs" />
     <Compile Include="PriorityQueue\FastPriorityQueue.cs" />
     <Compile Include="PriorityQueue\FastPriorityQueueNode.cs" />
     <Compile Include="PriorityQueue\GenericPriorityQueue.cs" />
