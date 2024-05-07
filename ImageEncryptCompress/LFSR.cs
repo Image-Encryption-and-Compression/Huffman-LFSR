@@ -8,16 +8,18 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ImageEncryptCompress
 {
-    internal class LFSR{
+    public class LFSR
+    {
 
         //- Class Data Members --/
 
         public int tapPosition;
-        private StringBuilder seed; 
+        private StringBuilder seed;
 
 
         // Constructor
-        public LFSR(string seed,int tapPosition){
+        public LFSR(string seed, int tapPosition)
+        {
 
             this.tapPosition = tapPosition;
             this.seed = new StringBuilder(seed);
@@ -32,12 +34,13 @@ namespace ImageEncryptCompress
         /// </summary>
         /// <returns> Return the Returned_Bit to Be used in generateKey() function </returns>
 
-        public char ShiftBit(){
+        public char ShiftBit()
+        {
 
             int tap = tapPosition;
             tap = seed.Length - tap - 1;
-            
-            char ReturnedBit = (char)('0'+(seed[0] - '0') ^ (seed[tap] - '0'));
+
+            char ReturnedBit = (char)('0' + (seed[0] - '0') ^ (seed[tap] - '0'));
 
             seed.Remove(0, 1);  // shifting 1st Bit in seed string
             seed.Append(ReturnedBit);
@@ -51,12 +54,14 @@ namespace ImageEncryptCompress
         /// </summary>
         /// <param name= "K"> the lenght of the Binary Key</param>
         /// <returns> Return a Decimal Key to be used in encrypting the image components </returns>
-        
-        public int GenerateKey(int k){                  
+
+        public int GenerateKey(int k)
+        {
 
             StringBuilder keyBin = new StringBuilder("");
 
-            for (int i = 1; i <= k; i++){
+            for (int i = 1; i <= k; i++)
+            {
 
                 char Bit = ShiftBit();
                 keyBin.Append(Bit);

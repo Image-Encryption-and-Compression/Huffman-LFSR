@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -27,19 +28,26 @@ namespace ImageEncryptCompress
                 ImageMatrix = ImageOperations.OpenImage(OpenedFilePath);
                 ImageOperations.DisplayImage(ImageMatrix, pictureBox1);
             }
-            txtWidth.Text = ImageOperations.GetWidth(ImageMatrix).ToString();
-            txtHeight.Text = ImageOperations.GetHeight(ImageMatrix).ToString();
         }
 
-        private void btnGaussSmooth_Click(object sender, EventArgs e)
+        private void label4_Click(object sender, EventArgs e)
         {
-            double sigma = double.Parse(txtGaussSigma.Text);
-            int maskSize = (int)nudMaskSize.Value ;
-            ImageMatrix = ImageOperations.GaussianFilter1D(ImageMatrix, maskSize, sigma);
-            ImageOperations.DisplayImage(ImageMatrix, pictureBox2);
+
         }
 
-       
-       
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw = Stopwatch.StartNew();
+            LFSR lfsr = new LFSR(seed.Text,Int32.Parse(tap.Text));
+            ImageOperations.DisplayImage(ImageEncrypterDecrypter.EncryptDecrypt(ImageMatrix,lfsr),pictureBox2);
+            sw.Stop();
+            Console.WriteLine("time = {0} ms", sw.ElapsedMilliseconds);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
