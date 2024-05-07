@@ -6,58 +6,57 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-/*
- * XML File within project Directory, BUT Under Creation 5/7/2024
-*/
-
 namespace ImageEncryptCompress
 {
     internal class LFSR
     {
 
-        //- Class Data Members ---/
+        //- Class Data Members --/
 
         public int tapPosition;
         private StringBuilder seed = new StringBuilder(""); 
 
 
-        //Constructor
+        // Constructor
         public LFSR(string seed,int tapPosition) {
 
             this.tapPosition = tapPosition;
-            this.seed.Append(seed);                        // that's how to assign a "string" value to a "stringBuilder".
+            this.seed.Append(seed);
         }
 
 
-        //- Class Methods ---/
+        //- Class Methods --/
+
+        /// <summary>
+        /// This Function shift the leftmost Bit of the seed & Append the returned value of XOR operation in the seed
+        /// </summary>
+        /// <param X-OR Returned Bit ="Returned_Bit"> this is the Returned Bit result of X-OR of: the shifted Bit & Bit at Tap Position </param>
+        /// <returns> Return the Returned_Bit to Be used in generateKey() function </returns>
         
-
-        /* This function do (2) things: 
-         * (1) Shifting the left most bit only once.
-         * (2) Updating original seed by the XOR operation.*/
-
         public char shiftBit()
         {
             int tap = tapPosition;
-            tap = seed.Length - tap - 1; // to shift from the left side not right side  
+            tap = seed.Length - tap - 1; // to shift from the left side of string not right side  
             
-            char Returned_Val = (char)(seed[0] - '0' ^ seed[tap] - '0');  // XOR operation
-            
+            char Returned_Bit = (char)(seed[0] - '0' ^ seed[tap] - '0');
 
-            // updating the original seed:
+            seed.Remove(0, 1);        // shifting (removing) 1st Bit in the seed string
+            seed.Append(Returned_Bit);
 
-            seed.Remove(0, 1);        // shifting the 1st Bit in the string
-            seed.Append(Returned_Val);
-
-            return Returned_Val;
+            return Returned_Bit;
         }
 
 
-        /* This function to generate the key in decimal for encryption & decryption.*/
+        /// <summary>
+        /// This Function is to generate a new Binary Key of K Bits, Then converting the Bin_key into a Decimal_Key
+        /// </summary>
+        /// <param Binary Key="key_Bin"> the Binary key of K Bits </param>
+        /// <returns> Return a Decimal Key to be used in encrypting the image components </returns>
+        
         public int generateKey(int K)
-        {
+        {                  
 
-            StringBuilder key_Bin = new StringBuilder("");  // Binary Key of K bits
+            StringBuilder key_Bin = new StringBuilder("");
 
             for (int i = 1; i <= K; i++)
             {
