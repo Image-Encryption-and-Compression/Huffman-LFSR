@@ -8,8 +8,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ImageEncryptCompress
 {
-    internal class LFSR
-    {
+    internal class LFSR{
 
         //- Class Data Members --/
 
@@ -18,7 +17,7 @@ namespace ImageEncryptCompress
 
 
         // Constructor
-        public LFSR(string seed,int tapPosition) {
+        public LFSR(string seed,int tapPosition){
 
             this.tapPosition = tapPosition;
             this.seed = new StringBuilder(seed);
@@ -33,17 +32,17 @@ namespace ImageEncryptCompress
         /// </summary>
         /// <returns> Return the Returned_Bit to Be used in generateKey() function </returns>
 
-        public char shiftBit()
-        {
+        public char ShiftBit(){
+
             int tap = tapPosition;
             tap = seed.Length - tap - 1;
             
-            char Returned_Bit = (char)((seed[0] - '0') ^ (seed[tap] - '0'));
+            char ReturnedBit = (char)('0'+(seed[0] - '0') ^ (seed[tap] - '0'));
 
             seed.Remove(0, 1);  // shifting 1st Bit in seed string
-            seed.Append(Returned_Bit);
+            seed.Append(ReturnedBit);
 
-            return Returned_Bit;
+            return ReturnedBit;
         }
 
 
@@ -53,20 +52,19 @@ namespace ImageEncryptCompress
         /// <param name= "K"> the lenght of the Binary Key</param>
         /// <returns> Return a Decimal Key to be used in encrypting the image components </returns>
         
-        public int GenerateKey(int K)
-        {                  
+        public int GenerateKey(int k){                  
 
-            StringBuilder key_Bin = new StringBuilder("");
+            StringBuilder keyBin = new StringBuilder("");
 
-            for (int i = 1; i <= K; i++)
-            {
-                char Bit = shiftBit();
-                key_Bin.Append(Bit);
+            for (int i = 1; i <= k; i++){
+
+                char Bit = ShiftBit();
+                keyBin.Append(Bit);
             }
 
-            int key_Decimal = Convert.ToInt32(key_Bin.ToString(), 2); // Converting Bin_key to Dec_key
+            int keyDecimal = Convert.ToInt32(keyBin.ToString(), 2); // Converting Bin_key to Dec_key
 
-            return key_Decimal;
+            return keyDecimal;
 
         }
 
