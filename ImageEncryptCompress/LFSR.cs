@@ -6,12 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-/*< code >
-  < seed > </ seed >
-  < tapPosition > </ tapPosition >
-  < key_Bin >  </ key_Bin >
-  < key_Decimal >  </ key_Decimal >
-</ code > 
+/*
+ * XML File within project Directory, BUT Under Creation 5/7/2024
 */
 
 namespace ImageEncryptCompress
@@ -22,14 +18,14 @@ namespace ImageEncryptCompress
         //- Class Data Members ---/
 
         public int tapPosition;
-        private static StringBuilder seed = new StringBuilder(""); // seed here is static, so Obj value always updated after operations.
+        private StringBuilder seed = new StringBuilder(""); 
 
 
         //Constructor
-        public LFSR(StringBuilder seedCon,int tapPosition) {
+        public LFSR(string seed,int tapPosition) {
 
             this.tapPosition = tapPosition;
-            seed.Append(seedCon);                        // that's how to assign a "string" value to a "stringBuilder".
+            this.seed.Append(seed);                        // that's how to assign a "string" value to a "stringBuilder".
         }
 
 
@@ -43,12 +39,14 @@ namespace ImageEncryptCompress
         public char shiftBit()
         {
             int tap = tapPosition;
-            tap = seed.Length - tap - 1; // to shift from the left side not right side
+            tap = seed.Length - tap - 1; // to shift from the left side not right side  
             
-            char Returned_Val = (char)(seed[0] ^ seed[tap]);  // XOR operation | Notice: return value form ^ operator is int 
+            char Returned_Val = (char)(seed[0] - '0' ^ seed[tap] - '0');  // XOR operation
+            
 
-            // updating the original seed
-            seed.Remove(0, 1); // shifting the 1st item in the string
+            // updating the original seed:
+
+            seed.Remove(0, 1);        // shifting the 1st Bit in the string
             seed.Append(Returned_Val);
 
             return Returned_Val;
@@ -59,7 +57,7 @@ namespace ImageEncryptCompress
         public int generateKey(int K)
         {
 
-            StringBuilder key_Bin = new StringBuilder("");  // the Binary Key of K bits
+            StringBuilder key_Bin = new StringBuilder("");  // Binary Key of K bits
 
             for (int i = 1; i <= K; i++)
             {

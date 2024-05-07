@@ -1,0 +1,37 @@
+
+<!-- A.Khatab-->
+<!-- File Still under creation -->
+<!-- File Still under creation -->
+<!-- File Still under creation -->
+
+
+<LFSR_Class>
+
+    <Class_DataMembers>
+
+        <Type_StringBuilder> seed </Type_StringBuilder>
+        <Type_INT>  tapPosition </Type_INT>
+
+    </Class_DataMembers>
+
+    <Class_Functions>
+    
+        <ReturnType_CHAR>
+            <name> shiftBit </name>
+        </ReturnType_CHAR>
+
+        <Function_Name> generateKey
+
+                <Return_Type> INT </Return_Type>
+
+                <Function_Variables>
+                    key_Bin <Type> stringBuilder </Type>
+                    key_Decimal <Type> INT </Type>
+                </Function_Variables>
+
+        </Function_Name>
+        
+    </Class_Functions>
+
+
+</LFSR_Class>
