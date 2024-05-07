@@ -37,7 +37,7 @@ namespace ImageEncryptCompress
         /// <param name="imageMatrix">the orignal image</param>
         /// <param name="passwordGenerator">object from LFSR class to generate keys</param>
         /// <returns>encrypted image</returns>
-        /*
+        
         public static RGBPixel[,] EncryptDecrypt(RGBPixel[,] imageMatrix, LFSR passwordGenerator)
         {
             width = ImageOperations.GetWidth(imageMatrix);
@@ -51,14 +51,14 @@ namespace ImageEncryptCompress
             {
                 for (int j = 0; j < width; j++)
                 {
-                    encryptedImage[i, j].red   = encryptedImage[i, j].red   ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
-                    encryptedImage[i, j].green = encryptedImage[i, j].green ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
-                    encryptedImage[i, j].blue  = encryptedImage[i, j].blue  ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
+                    encryptedImage[i, j].red   = (byte)(encryptedImage[i, j].red   ^ (byte)passwordGenerator.GenerateKey(numberOfBits));
+                    encryptedImage[i, j].green = (byte)(encryptedImage[i, j].green ^ (byte)passwordGenerator.GenerateKey(numberOfBits));
+                    encryptedImage[i, j].blue  = (byte)(encryptedImage[i, j].blue  ^ (byte)passwordGenerator.GenerateKey(numberOfBits));
                 }
             }
             
             return encryptedImage;
         }
-        */
+        
     }
 }
