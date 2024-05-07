@@ -35,7 +35,7 @@ namespace ImageEncryptCompress
         /// Encrypt the image by creating a copy of the original image and apply lfsr on it
         /// </summary>
         /// <param name="imageMatrix">the orignal image</param>
-        /// <param name="passwordGenerator">object from LSFR class to generate keys</param>
+        /// <param name="passwordGenerator">object from LFSR class to generate keys</param>
         /// <returns>encrypted image</returns>
         /*
         public static RGBPixel[,] EncryptDecrypt(RGBPixel[,] imageMatrix, LFSR passwordGenerator)
