@@ -6,7 +6,7 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7CA8077F-C27A-400D-B6C9-7737665499AC}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ImageEncryptCompress</RootNamespace>
     <AssemblyName>ImageEncryptCompress</AssemblyName>
@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -47,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Color.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="HuffmanNode.cs" />
     <Compile Include="HuffmanTree.cs" />
     <Compile Include="ImageUtilities.cs" />
@@ -59,6 +62,15 @@
     </Compile>
     <Compile Include="ImageOperations.cs" />
     <Compile Include="PriorityQueue.cs" />
+    <Compile Include="PriorityQueue\FastPriorityQueue.cs" />
+    <Compile Include="PriorityQueue\FastPriorityQueueNode.cs" />
+    <Compile Include="PriorityQueue\GenericPriorityQueue.cs" />
+    <Compile Include="PriorityQueue\GenericPriorityQueueNode.cs" />
+    <Compile Include="PriorityQueue\IFixedSizePriorityQueue.cs" />
+    <Compile Include="PriorityQueue\IPriorityQueue.cs" />
+    <Compile Include="PriorityQueue\SimplePriorityQueue.cs" />
+    <Compile Include="PriorityQueue\StablePriorityQueue.cs" />
+    <Compile Include="PriorityQueue\StablePriorityQueueNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -86,6 +98,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
