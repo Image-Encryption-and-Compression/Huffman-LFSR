@@ -20,45 +20,45 @@ namespace ImageEncryptCompress
         private RGBPixel[,] CopyMatrix(RGBPixel[,] imageMatrix)
         {
             
-            RGBPixel[,] ans = new RGBPixel[width, height];
-            for (int i = 0; i < width; i++)
+            RGBPixel[,] copiedImage = new RGBPixel[height, width];
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < width; j++)
                 {
-                    ans[i, j] = imageMatrix[i, j];
+                    copiedImage[i, j] = imageMatrix[i, j];
                 }
             }
-            return ans;
+            return copiedImage;
         }
 
         /// <summary>
         /// Encrypt the image by creating a copy of the original image and apply lfsr on it
         /// </summary>
         /// <param name="imageMatrix">the orignal image</param>
-        /// <param name="seed">the initial seed</param>
-        /// <param name="tapPosition"></param>
+        /// <param name="passwordGenerator">object from LSFR class to generate keys</param>
         /// <returns>encrypted image</returns>
-        public RGBPixel[,] EncryptDecrypt(RGBPixel[,] imageMatrix, string seed, int tapPosition)
+        /*
+        public RGBPixel[,] EncryptDecrypt(RGBPixel[,] imageMatrix, LFSR passwordGenerator)
         {
             width = ImageOperations.GetWidth(imageMatrix);
             height = ImageOperations.GetHeight(imageMatrix);
 
-            RGBPixel[,] encryptedImage = new RGBPixel[width, height];
-            RGBPixel[,] copiedImage = CopyMatrix(imageMatrix);
-            /* 
-            LFSR passwordGenerator = new LFSR(seed, tapPosition);
+            RGBPixel[,] encryptedImage = CopyMatrix(imageMatrix);
+            
             int numberOfBits = 8;
-            for (int i = 0; i < width; i++)
+
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < width; j++)
                 {
-                    copiedImage[i, j].red   = copiedImage[i, j].red   ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
-                    copiedImage[i, j].green = copiedImage[i, j].green ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
-                    copiedImage[i, j].blue  = copiedImage[i, j].blue  ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
+                    encryptedImage[i, j].red   = encryptedImage[i, j].red   ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
+                    encryptedImage[i, j].green = encryptedImage[i, j].green ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
+                    encryptedImage[i, j].blue  = encryptedImage[i, j].blue  ^ (byte)passwordGenerator.GenerateKey(numberOfBits);
                 }
             }
-            */
+            
             return encryptedImage;
         }
+        */
     }
 }
