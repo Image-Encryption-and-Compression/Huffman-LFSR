@@ -1,16 +1,16 @@
 using Priority_Queue;
 using System.Collections.Generic;
-using System.Text;
 
 public class HuffmanTree
 {
     private HuffmanNode root;
     private readonly int[] histogram;
-    private StringBuilder[] CompressedCodes;
+    private string[] compressedCodes;
+
     public HuffmanTree(int[] histogram)
     {
         histogram.CopyTo(this.histogram, 0);
-        CompressedCodes = new StringBuilder[Constants.MAX_VALUE];
+        compressedCodes = new string[Constants.MAX_VALUE];
     }
 
     /// <summary>
@@ -38,5 +38,51 @@ public class HuffmanTree
             pq.Enqueue(parent, parent.frequency);
         }
         root = pq.First;
+    }
+
+    /// <summary>
+    /// Traverses the Huffman tree using Breadth-First Search (BFS) and assigns each color value (0-255) its corresponding Huffman code
+    /// I am using BFS due to it being more intuitive in complexity analysis, since it's iterative
+    /// </summary>
+    public void BuildHuffmanCodes()
+    {
+        // I am storing the Huffman code as a string since each node has a new Huffman code
+        // They can't share the same StringBuilder, using StringBuilder here isn't suitable
+        // HuffmanNode, HuffmanCode when reached this node
+        Queue<KeyValuePair<HuffmanNode, string>> queue = new Queue<KeyValuePair<HuffmanNode, string>>();
+
+        queue.Enqueue(new KeyValuePair<HuffmanNode, string>(root, ""));
+        
+        HuffmanNode currentNode;
+        string currentHuffmanCode;
+
+        while (queue.Count != 0)
+        {
+            currentNode = queue.Peek().Key;
+            currentHuffmanCode = queue.Peek().Value;
+
+            queue.Dequeue();
+
+            // This is because in the Huffman tree if a node has a left child, then it for sure has a right child
+            if (currentNode.leftNode != null)
+            {
+                queue.Enqueue(new KeyValuePair<HuffmanNode, string>(currentNode.leftNode, currentHuffmanCode + '0'));
+                queue.Enqueue(new KeyValuePair<HuffmanNode, string>(currentNode.rightNode, currentHuffmanCode + '1'));
+            }
+            else
+            {
+                compressedCodes[currentNode.data] = currentHuffmanCode;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Returns the Huffman code corresponding to the given 8-bit color value (0-255)
+    /// </summary>
+    /// <param name="colorValue">8-bit color value</param>
+    /// <returns>Huffman code corresponding to the provided color value</returns>
+    public string GetCode(byte colorValue)
+    {
+        return compressedCodes[colorValue];
     }
 }
