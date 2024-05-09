@@ -25,7 +25,7 @@ public class HuffmanTree
         SimplePriorityQueue<HuffmanNode, int> pq = new SimplePriorityQueue<HuffmanNode, int>();
         for (int i = 0; i < histogram.Length; i++)
         {
-            if (histogram[i] == 0)
+            if (histogram[i] != 0)
                 pq.Enqueue(new HuffmanNode((byte)i, histogram[i]), histogram[i]);
         }
 
@@ -110,10 +110,12 @@ public class HuffmanTree
             return;
         if (node.leftChild == null)
         {
+            HuffmanCoding.numberOfBytes += 2;
             writer.Write((byte)1);
             writer.Write(node.data);
             return;
         }
+        HuffmanCoding.numberOfBytes++;
         writer.Write((byte)0);
         //Writing sub-trees
         WriteTreeToFile(node.leftChild, ref writer);

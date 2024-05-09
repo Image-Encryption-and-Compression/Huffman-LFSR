@@ -10,6 +10,8 @@ public class HuffmanCoding
     private static HuffmanTree red;
     private static HuffmanTree green;
     private static HuffmanTree blue;
+    public static int numberOfBytes = 0;
+
     public static void CompressImage(RGBPixel[,] image, ref BinaryWriter writer)
     {
         /*
@@ -40,12 +42,15 @@ public class HuffmanCoding
 
         red.WriteTreeToFile(ref writer);
         writer.Write((byte)2); //indicating end of the red HuffmanTree
+        numberOfBytes++;
 
         green.WriteTreeToFile(ref writer);
         writer.Write((byte)2); //indicating end of the green HuffmanTree
+        numberOfBytes++;
 
         blue.WriteTreeToFile(ref writer);
         writer.Write((byte)3); //indicating end of the Header
+        numberOfBytes++;
 
         WriteImageToFile(image, ref writer);
     }
@@ -56,7 +61,6 @@ public class HuffmanCoding
         StringBuilder currentByte = new StringBuilder();
         StringBuilder currentPixel = new StringBuilder();
 
-        double cnt = 0;
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
@@ -66,12 +70,13 @@ public class HuffmanCoding
                 currentPixel.Append(green.GetCode(image[i, j].green));
                 currentPixel.Append(blue.GetCode(image[i, j].blue));
                 var res = currentPixel.ToString();
+
                 foreach (var d in res)
                 {
                     currentByte.Append(d);
                     if (currentByte.Length == 8)
                     {
-                        cnt++;
+                        numberOfBytes++;
                         writer.Write(Convert.ToByte(currentByte.ToString(), 2));
                         currentByte.Clear();
                     }
@@ -81,14 +86,9 @@ public class HuffmanCoding
         }
         if (currentByte.Length != 0)
         {
-            cnt++;
+            numberOfBytes++;
             writer.Write(Convert.ToByte(currentByte.ToString(), 2));
             currentByte.Clear();
         }
-        double total = Math.Round(height * width * 3.0 / 1024.0);
-        Console.WriteLine("Compression Output {0}{1}", cnt, " Bytes");
-
-        cnt = Math.Round(cnt / 1024);
-        Console.WriteLine("Compression Ratio {0}", cnt / total);
     }
 }
