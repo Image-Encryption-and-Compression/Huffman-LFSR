@@ -2,18 +2,18 @@
 
 public class HuffmanNode : IComparable<HuffmanNode>
 {
-    public int data;
+    public byte data;
     public int frequency;
-    public HuffmanNode leftNode;
-    public HuffmanNode rightNode;
-    public HuffmanNode(int data, HuffmanNode leftNode, HuffmanNode rightNode)
+    public HuffmanNode leftChild;
+    public HuffmanNode rightChild;
+    public HuffmanNode(byte data, HuffmanNode leftChild, HuffmanNode rightChild)
     {
         this.data = data;
-        this.leftNode = leftNode;
-        this.rightNode = rightNode;
-        frequency = leftNode.frequency + rightNode.frequency;
+        this.leftChild = leftChild;
+        this.rightChild = rightChild;
+        frequency = leftChild.frequency + rightChild.frequency;
     }
-    public HuffmanNode(int data, int frequency)
+    public HuffmanNode(byte data, int frequency)
     {
         this.data = data;
         this.frequency = frequency;
@@ -23,9 +23,3 @@ public class HuffmanNode : IComparable<HuffmanNode>
         return frequency - node.frequency;
     }
 }
-
-
-
-
-
-

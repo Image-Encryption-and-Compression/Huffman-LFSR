@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="HuffmanCoding.cs" />
     <Compile Include="HuffmanNode.cs" />
     <Compile Include="HuffmanTree.cs" />
     <Compile Include="ImageUtilities.cs" />

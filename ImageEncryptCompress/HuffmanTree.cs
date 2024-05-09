@@ -1,5 +1,6 @@
 using Priority_Queue;
 using System.Collections.Generic;
+using System.IO;
 
 public class HuffmanTree
 {
@@ -9,8 +10,11 @@ public class HuffmanTree
 
     public HuffmanTree(int[] histogram)
     {
+        this.histogram = new int[Constants.MAX_VALUE];
         histogram.CopyTo(this.histogram, 0);
         compressedCodes = new string[Constants.MAX_VALUE];
+        BuildHuffmanTree();
+        BuildHuffmanCodes();
     }
 
     /// <summary>
@@ -21,7 +25,8 @@ public class HuffmanTree
         SimplePriorityQueue<HuffmanNode, int> pq = new SimplePriorityQueue<HuffmanNode, int>();
         for (int i = 0; i < histogram.Length; i++)
         {
-            pq.Enqueue(new HuffmanNode(i, histogram[i]), histogram[i]);
+            if (histogram[i] == 0)
+                pq.Enqueue(new HuffmanNode((byte)i, histogram[i]), histogram[i]);
         }
 
         while (pq.Count > 1)
@@ -33,7 +38,7 @@ public class HuffmanTree
             pq.Dequeue();
 
             //MAX_VALUE to indicate to internal node: does not represent any value
-            HuffmanNode parent = new HuffmanNode(Constants.MAX_VALUE, leftNode, rightNode);
+            HuffmanNode parent = new HuffmanNode(Constants.INTERNAL_NODE, leftNode, rightNode);
 
             pq.Enqueue(parent, parent.frequency);
         }
@@ -64,10 +69,10 @@ public class HuffmanTree
             queue.Dequeue();
 
             // This is because in the Huffman tree if a node has a left child, then it for sure has a right child
-            if (currentNode.leftNode != null)
+            if (currentNode.leftChild != null)
             {
-                queue.Enqueue(new KeyValuePair<HuffmanNode, string>(currentNode.leftNode, currentHuffmanCode + '0'));
-                queue.Enqueue(new KeyValuePair<HuffmanNode, string>(currentNode.rightNode, currentHuffmanCode + '1'));
+                queue.Enqueue(new KeyValuePair<HuffmanNode, string>(currentNode.leftChild, currentHuffmanCode + '0'));
+                queue.Enqueue(new KeyValuePair<HuffmanNode, string>(currentNode.rightChild, currentHuffmanCode + '1'));
             }
             else
             {
@@ -84,5 +89,34 @@ public class HuffmanTree
     public string GetCode(byte colorValue)
     {
         return compressedCodes[colorValue];
+    }
+
+    /// <summary>
+    /// Interface to use the WriteTreeToFile(HuffmanNode node, BinaryWriter writer) function
+    /// </summary>
+    /// <param name="writer">The BinaryWriter object used to write data to the binary file file</param>
+    public void WriteTreeToFile(ref BinaryWriter writer)
+    {
+        WriteTreeToFile(root, ref writer);
+    }
+    /// <summary>
+    /// Writes the Huffman tree structure to a file in a pre-order traversal.
+    /// </summary>
+    /// <param name="node">The root node of the Huffman tree.</param>
+    /// <param name="writer">The BinaryWriter object used to write data to the binary file file.</param>
+    private void WriteTreeToFile(HuffmanNode node, ref BinaryWriter writer)
+    {
+        if (node == null)
+            return;
+        if (node.leftChild == null)
+        {
+            writer.Write((byte)1);
+            writer.Write(node.data);
+            return;
+        }
+        writer.Write((byte)0);
+        //Writing sub-trees
+        WriteTreeToFile(node.leftChild, ref writer);
+        WriteTreeToFile(node.rightChild, ref writer);
     }
 }
