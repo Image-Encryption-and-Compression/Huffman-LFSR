@@ -11,9 +11,7 @@ public class HuffmanNode : IComparable<HuffmanNode>
         this.data = data;
         this.leftNode = leftNode;
         this.rightNode = rightNode;
-        this.frequency = leftNode.frequency + rightNode.frequency;
-
-
+        frequency = leftNode.frequency + rightNode.frequency;
     }
     public HuffmanNode(int data, int frequency)
     {
