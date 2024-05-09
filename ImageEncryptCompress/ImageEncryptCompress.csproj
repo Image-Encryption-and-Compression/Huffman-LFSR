@@ -7,6 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7CA8077F-C27A-400D-B6C9-7737665499AC}</ProjectGuid>
     <OutputType>Exe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ImageEncryptCompress</RootNamespace>
     <AssemblyName>ImageEncryptCompress</AssemblyName>
@@ -41,6 +42,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -52,6 +56,11 @@
   <ItemGroup>
     <Compile Include="ImageEncrypterDecrypter.cs" />
     <Compile Include="LFSR.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="HuffmanCoding.cs" />
+    <Compile Include="HuffmanNode.cs" />
+    <Compile Include="HuffmanTree.cs" />
+    <Compile Include="ImageUtilities.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +68,15 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageOperations.cs" />
+    <Compile Include="PriorityQueue\FastPriorityQueue.cs" />
+    <Compile Include="PriorityQueue\FastPriorityQueueNode.cs" />
+    <Compile Include="PriorityQueue\GenericPriorityQueue.cs" />
+    <Compile Include="PriorityQueue\GenericPriorityQueueNode.cs" />
+    <Compile Include="PriorityQueue\IFixedSizePriorityQueue.cs" />
+    <Compile Include="PriorityQueue\IPriorityQueue.cs" />
+    <Compile Include="PriorityQueue\SimplePriorityQueue.cs" />
+    <Compile Include="PriorityQueue\StablePriorityQueue.cs" />
+    <Compile Include="PriorityQueue\StablePriorityQueueNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -86,6 +104,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
