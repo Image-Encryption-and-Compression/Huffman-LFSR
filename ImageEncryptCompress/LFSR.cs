@@ -20,12 +20,11 @@ namespace ImageEncryptCompress
         // Constructor
         public LFSR(string STR_seed, int tapPosition)
         {
-            this.tapPosition = tapPosition;
             this.lenghtOfSeed = STR_seed.Length;
+            this.tapPosition = lenghtOfSeed - tapPosition - 1;
             this.seed = 0;
             for (int i = 0; i < lenghtOfSeed; i++)
             {
-                
                 this.seed *= 2;
                 this.seed += STR_seed[i] - '0';
             }  
@@ -41,11 +40,10 @@ namespace ImageEncryptCompress
         /// <returns> Return the a Bit to Be used in generateKey() function </returns>
         public int Step()
         {
-            int tap = tapPosition;
-            tap = lenghtOfSeed - tap - 1;
+         
 
             int copy = seed;
-            copy = copy << tap;
+            copy = copy << tapPosition;
 
             int bit = ((copy ^ seed) >> (lenghtOfSeed - 1)) & 1;
 
