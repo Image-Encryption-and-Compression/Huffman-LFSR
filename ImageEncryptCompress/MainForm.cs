@@ -23,6 +23,7 @@ namespace ImageEncryptCompress
         RGBPixel[,] encryptedImage;
         string fileName;
         string filePath;
+        double originalSize;
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -45,6 +46,7 @@ namespace ImageEncryptCompress
                     if(start)
                         fileName += OpenedFilePath[i];
                 }
+                originalSize = new FileInfo(OpenedFilePath).Length;
                 var tmp = fileName.ToCharArray();
                 Array.Reverse(tmp);
                 fileName = new string(tmp);
@@ -86,11 +88,16 @@ namespace ImageEncryptCompress
             HuffmanCoding.CompressImage(ImageMatrix, ref writer);
             writer.Close();
 
+
+            
             sw.Stop();
             double time = sw.ElapsedMilliseconds;
             time /= 1e3;
+
+            double compressionRatio = Math.Round((HuffmanCoding.numberOfBytes / originalSize) * 100, 3);
             string caption = $"Exection Time in Seconds = {time} seconds\n" +
-                             $"Compressed Binary File Size = {HuffmanCoding.numberOfBytes} bytes";
+                             $"Compressed Binary File Size = {HuffmanCoding.numberOfBytes} bytes\n" +
+                             $"Compression Ratio = {compressionRatio}";
             MessageBox.Show(caption, "Encryption & Compression Exection Time",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
