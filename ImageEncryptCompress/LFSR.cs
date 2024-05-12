@@ -14,20 +14,20 @@ namespace ImageEncryptCompress
 
         //- Class Data Members --/
         private int tapPosition;
-        private int n;
+        private int lenghtOfSeed;
         private int seed;
       
         // Constructor
-        public LFSR(string seed, int tapPosition)
+        public LFSR(string STR_seed, int tapPosition)
         {
             this.tapPosition = tapPosition;
-            this.n = seed.Length;
+            this.lenghtOfSeed = STR_seed.Length;
             this.seed = 0;
-            for (int i=0;i<n; i++)
+            for (int i = 0; i < lenghtOfSeed; i++)
             {
                 
                 this.seed *= 2;
-                this.seed += seed[i] - '0';
+                this.seed += STR_seed[i] - '0';
             }  
         }
 
@@ -42,15 +42,15 @@ namespace ImageEncryptCompress
         public int Step()
         {
             int tap = tapPosition;
-            tap = n - tap - 1;
+            tap = lenghtOfSeed - tap - 1;
 
             int copy = seed;
             copy = copy << tap;
 
-            int bit = ((copy ^ seed) >> (n - 1)) & 1;
+            int bit = ((copy ^ seed) >> (lenghtOfSeed - 1)) & 1;
 
-            seed = seed << (32 - (n - 1));
-            seed = seed >> (31 - (n - 1));
+            seed = seed << (32 - (lenghtOfSeed - 1));
+            seed = seed >> (31 - (lenghtOfSeed - 1));
 
             seed += bit;
 
