@@ -17,10 +17,11 @@ public class HuffmanCoding
         /*
         File structure:
             seed (int32) tapPosition(byte)
-            Red Channel Tree
-            Green Channel Tree
+            Red Channel Tree {EOT = 2}
+            Green Channel Tree {EOT = 2}
             Blue Channel Tree
             {EOH = 3}
+            height width
             image[0,0].red image[0,0].green image[0,0].blue image[0,1].red...
             .
             .
@@ -60,6 +61,10 @@ public class HuffmanCoding
         int width = image.GetLength(1);
         StringBuilder currentByte = new StringBuilder();
         StringBuilder currentPixel = new StringBuilder();
+
+        //write height and width
+        writer.Write(height);
+        writer.Write(width);
 
         for (int i = 0; i < height; i++)
         {
