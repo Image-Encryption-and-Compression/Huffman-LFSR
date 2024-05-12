@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -12,17 +13,22 @@ namespace ImageEncryptCompress
     {
 
         //- Class Data Members --/
-
-        public int tapPosition;
-        private StringBuilder seed;
-
-
+        private int tapPosition;
+        private int n;
+        private int seed;
+      
         // Constructor
         public LFSR(string seed, int tapPosition)
         {
-
             this.tapPosition = tapPosition;
-            this.seed = new StringBuilder(seed);
+            this.n = seed.Length;
+            this.seed = 0;
+            for (int i=0;i<n; i++)
+            {
+                
+                this.seed *= 2;
+                this.seed += seed[i] - '0';
+            }  
         }
 
 
@@ -32,45 +38,42 @@ namespace ImageEncryptCompress
         /// This Function shift the leftmost Bit of the seed & Append the returned value of XOR operation in the seed 
         /// and replacing the tap value (only in the function) to shift from left side of string not right side  
         /// </summary>
-        /// <returns> Return the Returned_Bit to Be used in generateKey() function </returns>
-
-        public char ShiftBit()
+        /// <returns> Return the a Bit to Be used in generateKey() function </returns>
+        public int Step()
         {
-
             int tap = tapPosition;
-            tap = seed.Length - tap - 1;
+            tap = n - tap - 1;
 
-            char ReturnedBit = (char)('0' + (seed[0] - '0') ^ (seed[tap] - '0'));
+            int copy = seed;
+            copy = copy << tap;
 
-            seed.Remove(0, 1);  // shifting 1st Bit in seed string
-            seed.Append(ReturnedBit);
+            int bit = ((copy ^ seed) >> (n - 1)) & 1;
 
-            return ReturnedBit;
+            seed = seed << (32 - (n - 1));
+            seed = seed >> (31 - (n - 1));
+
+            seed += bit;
+
+            return bit;
         }
 
 
         /// <summary>
-        /// This Function is to generate a new Binary Key of K Bits, Then converting the Bin_key into a Decimal_Key
+        /// This Function is to generate a new Binary Key of K Bits
         /// </summary>
         /// <param name= "K"> the lenght of the Binary Key</param>
         /// <returns> Return a Decimal Key to be used in encrypting the image components </returns>
 
         public int GenerateKey(int k)
         {
-
-            StringBuilder keyBin = new StringBuilder("");
-
+            int key = 0;
             for (int i = 1; i <= k; i++)
             {
-
-                char Bit = ShiftBit();
-                keyBin.Append(Bit);
-            }
-
-            int keyDecimal = Convert.ToInt32(keyBin.ToString(), 2); // Converting Bin_key to Dec_key
-
-            return keyDecimal;
-
+                int Bit = Step();
+                key *= 2;
+                key += Bit;
+            } 
+            return key;
         }
 
     }
