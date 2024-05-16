@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlphaLFSR.cs" />
     <Compile Include="ImageEncrypterDecrypter.cs" />
     <Compile Include="LFSR.cs" />
     <Compile Include="Constants.cs" />
