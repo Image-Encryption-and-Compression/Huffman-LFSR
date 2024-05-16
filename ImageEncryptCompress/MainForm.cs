@@ -298,5 +298,31 @@ namespace ImageEncryptCompress
             MessageBox.Show(caption, "Decryption Exection Time",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (ImageMatrix == null || seed.Text.Length == 0 || tap.Text.Length == 0 ||
+                 Byte.Parse(tap.Text) >= seed.Text.Length * 6)
+            {
+                MessageBox.Show("Invalid input", "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            HuffmanCoding.numberOfBytes = 0;
+
+            Stopwatch sw = new Stopwatch();
+            sw = Stopwatch.StartNew();
+
+            AlphaLFSR lfsr = new AlphaLFSR(seed.Text, Int32.Parse(tap.Text));
+            encryptedImage = ImageEncrypterDecrypter.EncryptDecrypt(ImageMatrix, lfsr);
+            ImageOperations.DisplayImage(encryptedImage, pictureBox2);
+
+            sw.Stop();
+            double time = sw.ElapsedMilliseconds;
+            time /= 1e3;
+
+            string caption = $"Encryption Exection Time in Seconds = {time} seconds\n";
+            MessageBox.Show(caption, "Encryption Exection Time",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

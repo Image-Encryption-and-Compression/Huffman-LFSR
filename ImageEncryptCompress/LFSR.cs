@@ -13,7 +13,7 @@ namespace ImageEncryptCompress
     {
 
         //- Class Data Members --/
-
+        public int asd;
         private readonly int tapPosition;
         private readonly int lengthOfSeed;
         private ulong seed;
