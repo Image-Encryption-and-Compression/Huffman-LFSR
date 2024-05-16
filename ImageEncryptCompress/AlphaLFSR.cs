@@ -48,7 +48,7 @@ namespace ImageEncryptCompress
             }
         }
 
-        public int Step()
+        public int ShiftBit()
         {
             int Bit = (seed[0] ^ seed[tapPosition]);
 
@@ -67,7 +67,7 @@ namespace ImageEncryptCompress
             int key = 0;
             for (int i = 1; i <= k; i++)
             {
-                int Bit = Step();
+                int Bit = ShiftBit();
                 key *= 2;
                 key += Bit;
             }

@@ -13,16 +13,18 @@ namespace ImageEncryptCompress
     {
 
         //- Class Data Members --/
-        private int tapPosition;
-        private int lengthOfSeed;
-        private long seed;
+
+        private readonly int tapPosition;
+        private readonly int lengthOfSeed;
+        private ulong seed;
       
         // Constructor
         public LFSR(string STR_seed, int tapPosition)
         {
             this.lengthOfSeed = STR_seed.Length;
-            this.tapPosition = lengthOfSeed - tapPosition - 1;
-            this.seed = Convert.ToInt64(STR_seed, 2);
+
+            this.tapPosition = tapPosition;
+            this.seed = Convert.ToUInt64(STR_seed,2); 
         }
 
 
@@ -33,19 +35,27 @@ namespace ImageEncryptCompress
         /// and replacing the tap value (only in the function) to shift from left side of string not right side  
         /// </summary>
         /// <returns> Return the a Bit to Be used in generateKey() function </returns>
-        public int Step()
+        public int ShiftBit()
         {
-            long copy = seed;
-            copy = copy << tapPosition;
 
-            long bit = ((copy ^ seed) >> (lengthOfSeed - 1)) & 1;
+            int bit;
+            ulong copy = seed;
+            ulong x = (ulong) 1 << lengthOfSeed - 1;
+            ulong y = (ulong) 1 << tapPosition;
 
-            seed = seed << (32 - (lengthOfSeed - 1));
-            seed = seed >> (31 - (lengthOfSeed - 1));
+            if (((seed & x) > 0 && (copy & y) > 0) || ((seed & x) == 0 && (copy & y) == 0))
+                bit = 0;
+            else
+                bit = 1;
 
-            seed += bit;
+            ulong z = ((ulong)1 << lengthOfSeed - 1) - 1;
+            seed &= z;
 
-            return (int)bit;
+            seed <<= 1;
+
+            seed += (ulong)bit;
+
+            return bit;
         }
 
 
@@ -60,7 +70,8 @@ namespace ImageEncryptCompress
             byte key = 0;
             for (int i = 1; i <= k; i++)
             {
-                byte bit = (byte)Step();
+                byte bit = (byte)ShiftBit();
+
                 key *= 2;
                 key += bit;
             } 
