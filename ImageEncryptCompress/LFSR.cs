@@ -15,19 +15,14 @@ namespace ImageEncryptCompress
         //- Class Data Members --/
         private int tapPosition;
         private int lengthOfSeed;
-        private int seed;
+        private long seed;
       
         // Constructor
         public LFSR(string STR_seed, int tapPosition)
         {
             this.lengthOfSeed = STR_seed.Length;
             this.tapPosition = lengthOfSeed - tapPosition - 1;
-            this.seed = 0;
-            for (int i = 0; i < lengthOfSeed; i++)
-            {
-                this.seed *= 2;
-                this.seed += STR_seed[i] - '0';
-            }  
+            this.seed = Convert.ToInt64(STR_seed, 2);
         }
 
 
@@ -40,19 +35,17 @@ namespace ImageEncryptCompress
         /// <returns> Return the a Bit to Be used in generateKey() function </returns>
         public int Step()
         {
-         
-
-            int copy = seed;
+            long copy = seed;
             copy = copy << tapPosition;
 
-            int bit = ((copy ^ seed) >> (lengthOfSeed - 1)) & 1;
+            long bit = ((copy ^ seed) >> (lengthOfSeed - 1)) & 1;
 
             seed = seed << (32 - (lengthOfSeed - 1));
             seed = seed >> (31 - (lengthOfSeed - 1));
 
             seed += bit;
 
-            return bit;
+            return (int)bit;
         }
 
 
@@ -62,14 +55,14 @@ namespace ImageEncryptCompress
         /// <param name= "K"> the lenght of the Binary Key</param>
         /// <returns> Return a Decimal Key to be used in encrypting the image components </returns>
 
-        public int GenerateKey(int k)
+        public byte GenerateKey(int k)
         {
-            int key = 0;
+            byte key = 0;
             for (int i = 1; i <= k; i++)
             {
-                int Bit = Step();
+                byte bit = (byte)Step();
                 key *= 2;
-                key += Bit;
+                key += bit;
             } 
             return key;
         }

@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 public class RetrievedHuffmanTree
 {
-    private HuffmanNode root;
-    private Dictionary<string, byte> originalCodes;
+    public HuffmanNode root;
     public RetrievedHuffmanTree()
     {
         root = null;
-        originalCodes = new Dictionary<string, byte>();
     }
 
     /// <summary>
@@ -49,37 +47,5 @@ public class RetrievedHuffmanTree
         }
         //frquency doesn't matter here. We already used it in building it for the first time
         return new HuffmanNode(reader.ReadByte(), 0);
-    }
-
-    private void BuildOriginalCodes()
-    {
-        // I am storing the Huffman code as a string since each node has a new Huffman code
-        // They can't share the same StringBuilder, using StringBuilder here isn't suitable
-        // HuffmanNode, HuffmanCode when reached this node
-        Queue<KeyValuePair<HuffmanNode, string>> queue = new Queue<KeyValuePair<HuffmanNode, string>>();
-
-        queue.Enqueue(new KeyValuePair<HuffmanNode, string>(root, ""));
-
-        HuffmanNode currentNode;
-        string currentHuffmanCode;
-
-        while (queue.Count != 0)
-        {
-            currentNode = queue.Peek().Key;
-            currentHuffmanCode = queue.Peek().Value;
-
-            queue.Dequeue();
-
-            // This is because in the Huffman tree if a node has a left child, then it for sure has a right child
-            if (currentNode.leftChild != null)
-            {
-                queue.Enqueue(new KeyValuePair<HuffmanNode, string>(currentNode.leftChild, currentHuffmanCode + '0'));
-                queue.Enqueue(new KeyValuePair<HuffmanNode, string>(currentNode.rightChild, currentHuffmanCode + '1'));
-            }
-            else
-            {
-                originalCodes[currentHuffmanCode] = currentNode.data;
-            }
-        }
     }
 }

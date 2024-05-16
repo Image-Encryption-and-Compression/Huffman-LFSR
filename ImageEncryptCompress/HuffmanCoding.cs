@@ -2,8 +2,12 @@
 using ImageEncryptCompress;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 public class HuffmanCoding
 {
@@ -59,17 +63,18 @@ public class HuffmanCoding
         //check for unwritten remaining bytes
         if (currentByte.Length != 0)
         {
+            while(currentByte.Length != 8)
+                currentByte.Append('0');
             numberOfBytes++;
             compressedData.Add(Convert.ToByte(currentByte.ToString(), 2));
         }
-
         SaveCompressedImage(compressedData, ref writer);
     }
     public static void SaveCompressedImage(List<byte> compressedData,ref BinaryWriter writer)
     {
         /*
         File structure:
-            seed (int64) tapPosition(byte)
+            seed (string) tapPosition(byte)
             Red Channel Tree {EOT = 2}
             Green Channel Tree {EOT = 2}
             Blue Channel Tree
@@ -109,4 +114,69 @@ public class HuffmanCoding
         foreach(var d in compressedData)
             writer.Write(d);
     }
+    public static RGBPixel[,] DecompressImage(ref BinaryReader reader)
+    {
+
+        //reading trees
+        RetrievedHuffmanTree[] trees = new RetrievedHuffmanTree[3];
+        trees[0] = new RetrievedHuffmanTree();
+        trees[0].BuildTreeFromFile(ref reader);
+        reader.ReadByte();
+
+        trees[1] = new RetrievedHuffmanTree();
+        trees[1].BuildTreeFromFile(ref reader);
+        reader.ReadByte();
+
+        trees[2] = new RetrievedHuffmanTree();
+        trees[2].BuildTreeFromFile(ref reader);
+        reader.ReadByte();
+
+        //reading height and width
+        height = reader.ReadInt32();
+        width = reader.ReadInt32();
+        RGBPixel[,] image = new RGBPixel[height, width];
+
+        //reading compressed data
+        byte[] data = reader.ReadBytes((int)reader.BaseStream.Length);
+        reader.Close();
+
+        int i = 0, j = 0, channel = 0;
+        var curNode = trees[channel].root;
+        foreach (var currentByte in data)
+        {
+            for (int d = 7; d >= 0; d--)
+            {
+                bool lit = (currentByte & (1 << d)) > 0;
+                if(lit)
+                    curNode = curNode.rightChild;
+                else
+                    curNode = curNode.leftChild;
+                //leaf
+                if(curNode.leftChild == null)
+                {
+                    if (channel == 0)
+                        image[i, j].red = curNode.data;
+                    else if (channel == 1)
+                        image[i, j].green = curNode.data;
+                    else
+                    {
+                        image[i, j].blue = curNode.data;
+                        j++;
+                        if (j == width)
+                        {
+                            i++;
+                            j = 0;
+                            if (i == height)
+                                break;
+                        }
+                    }
+                    channel = (channel + 1) % 3;
+                    curNode = trees[channel].root;
+                }
+            }
+        }
+        return image;
+    }
+
+
 }
