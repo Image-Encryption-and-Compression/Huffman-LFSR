@@ -13,11 +13,15 @@
 </h1>
 
 <p style="font-family:poppins;" align="center">
-    Securing and Compressing Images with Huffman Coding and Linear Feedback Shift Register (LFSR) Technique
+    Securing and Compressing Images with Huffman Coding and Linear Feedback Shift Register (LFSR) Technique.
 </p>
 
+<div align="center">
+    <img src="https://i.imgur.com/FeYzEgj.png" alt="Huffman-LFSR program">
+</div>
+
 ## Overview
-The **Huffman-LFSR Image Encryption and Compression** project integrates Huffman coding for efficient image compression with Linear Feedback Shift Register (LFSR) for secure encryption.This tool transforms `.bmp` images into compressed `binary files`, including necessary metadata for easy decompression and decryption.
+The **Huffman-LFSR Image Encryption and Compression** project integrates Huffman coding for efficient image compression with Linear Feedback Shift Register (LFSR) for secure encryption. This tool transforms `.bmp` images into compressed `binary files`, including necessary metadata for easy decompression and decryption.
 
 Users can customize encryption parameters for added security, while the project includes benchmarks to assess performance in terms of speed and file size.
 
@@ -30,6 +34,7 @@ Users can customize encryption parameters for added security, while the project 
 - **Image Decompression**: Decompresses images using the saved metadata in the `.bin` file, restoring them back to `.bmp` format.
 - **Complexity Analysis**: Offers a detailed complexity analysis using $\LaTeX$<br>
 <br>
+
 ![Priority Queue operations Complexity Analysis](https://i.imgur.com/8R3xNKN.png)
 
 ## Extra Feature: Enhanced Alpha Numeric Key Generation
@@ -68,16 +73,16 @@ Image structure in the file:
 ## Usage
 ![Huffman-LFSR program](https://i.imgur.com/FeYzEgj.png)
 
-### Forward Operations (Encryption/ Compression)
-- Open desired image to compress/encrypt
+### Forward Operations (Encryption/Compression)
+- Open **the desired image** to compress/encrypt
 - Provide the `initial seed` and `tap position` (default=0)
 - Click on the desired option
 - Results show on left
 - Save bin/image if you want
 
 
-### Backward Operations (Decryption/ Decompression)
-- Open binary image/file
+### Backward Operations (Decryption/Decompression)
+- Open **binary image/file**
 - Provide the `initial seed` and `tap position` (default=0)
 - Click on the desired option
 - Results show on left
