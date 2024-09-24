@@ -17,7 +17,7 @@
 </p>
 
 <div align="center">
-    <img src="https://i.imgur.com/FeYzEgj.png" alt="Huffman-LFSR program">
+    <img src="https://i.imgur.com/bLJTRX1.png" alt="Huffman-LFSR program">
 </div>
 
 ## Overview
@@ -71,7 +71,7 @@ Image structure in the file:
 ```
 
 ## Usage
-![Huffman-LFSR program](https://i.imgur.com/FeYzEgj.png)
+![forward](https://i.imgur.com/bLJTRX1.png)
 
 ### Forward Operations (Encryption/Compression)
 - Open **the desired image** to compress/encrypt
@@ -80,7 +80,7 @@ Image structure in the file:
 - Results show on left
 - Save bin/image if you want
 
-
+![backward](https://i.imgur.com/fLS8rSY.png)
 ### Backward Operations (Decryption/Decompression)
 - Open **binary image/file**
 - Provide the `initial seed` and `tap position` (default=0)
