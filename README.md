@@ -29,9 +29,9 @@ Users can customize encryption parameters for added security, while the project 
 - **Huffman Tree Construction**: Builds a Huffman tree for each color channel and extracts corresponding Huffman codes based on the constructed tree based on the histogram of this color channel.
 - **Image Compression**: Compresses `.bmp` images into a `.bin` file, which contains metadata about the Huffman trees and the compressed image data.
 - **Image Encryption**: Provides functionality to encrypt `.bmp` images using LFSR.
-- **Customizable Encryption Parameters**: Allows user to input any `initial seed` and `shift position` for the encryption process.
+- **Customizable Encryption Parameters**: Allows users to input any `initial seed` and `shift position` for the encryption process.
 - **Image Decryption**: Decrypts the image using the `same initial` seed and `shift position` used during encryption.
-- **Image Decompression**: Decompresses images using the saved metadata in the `.bin` file, restoring them back to `.bmp` format.
+- **Image Decompression**: Decompresses images using the saved metadata in the `.bin` file, restoring them to `.bmp` format.
 - **Complexity Analysis**: Offers a detailed complexity analysis using $\LaTeX$<br>
 <br>
 
@@ -90,9 +90,7 @@ Image structure in the file:
 
 
 ## Benchmarks
-The following benchmarks illustrate the performance and efficiency of the image encryption and compression process. The graph. Analyzing these benchmarks helps to assess the effectiveness of the implemented algorithms.
-
-## Benchmarks
+The following benchmarks illustrate the performance and efficiency of the image encryption and compression process. Analyzing these benchmarks helps to assess the effectiveness of the implemented algorithms.
 
 ### Time Benchmark (in seconds)
 <table>
